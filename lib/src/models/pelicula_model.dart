@@ -80,5 +80,16 @@ class Pelicula {
 
   }
 
+  getBackgroudImg(){
+
+    if(posterPath == null){
+      return 'https://icon-library.net/images/no-image-available-icon/no-image-available-icon-6.jpg';
+    }else{
+      return 'https://image.tmdb.org/t/p/w500/$backdropPath';
+    }
+
+  }
+
+
 }
 
