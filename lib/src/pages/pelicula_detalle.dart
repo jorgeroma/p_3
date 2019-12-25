@@ -22,9 +22,6 @@ class PeliculaDetalle extends StatelessWidget {
                 SizedBox(height: 10.0,),
                 _posterTitulo(pelicula, context),
                 _descripcion(pelicula),
-                _descripcion(pelicula),
-                _descripcion(pelicula),
-                _descripcion(pelicula),
                 _crearCasting(pelicula),
               ]
             ),
@@ -140,6 +137,7 @@ class PeliculaDetalle extends StatelessWidget {
 
   Widget _actorTarjeta(Actor actor, BuildContext context){
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
