@@ -7,7 +7,7 @@ class Cast{
 
   Cast.fromJsonList(List<dynamic> jsonList){
     
-    if(jsonList=null) return;
+    if(jsonList==null) return;
 
     jsonList.forEach((item){
       final actor = Actor.fromJsonMap(item);
@@ -40,14 +40,14 @@ class Actor {
   });
 
   Actor.fromJsonMap(Map<String,dynamic> json){
-    castId      = json['castId'];
+    castId      = json['cast_id'];
     character   = json['character'];
-    creditId    = json['creditId'];
+    creditId    = json['credit_id'];
     gender      = json['gender'];
     id          = json['id'];
     name        = json['name'];
     order       = json['order'];
-    profilePath = json['profilePath'];
+    profilePath = json['profile_path'];
   }
 
   getFoto(){
