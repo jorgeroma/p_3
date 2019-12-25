@@ -21,10 +21,10 @@ class PeliculaDetalle extends StatelessWidget {
               [
                 SizedBox(height: 10.0,),
                 _posterTitulo(pelicula, context),
-                _descipcion(pelicula),
-                _descipcion(pelicula),
-                _descipcion(pelicula),
-                _descipcion(pelicula),
+                _descripcion(pelicula),
+                _descripcion(pelicula),
+                _descripcion(pelicula),
+                _descripcion(pelicula),
                 _crearCasting(pelicula),
               ]
             ),
@@ -62,11 +62,14 @@ class PeliculaDetalle extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15.0),
-            child: Image(
-              image: NetworkImage(pelicula.getPosterImg()),
-              height: 150.0,
+          Hero(
+            tag: pelicula.id,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Image(
+                image: NetworkImage(pelicula.getPosterImg()),
+                height: 150.0,
+              ),
             ),
           ),
           SizedBox(width: 20.0,),
@@ -90,7 +93,7 @@ class PeliculaDetalle extends StatelessWidget {
     );
   }
 
-  Widget _descipcion(Pelicula pelicula) {
+  Widget _descripcion(Pelicula pelicula) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       child: Text(
