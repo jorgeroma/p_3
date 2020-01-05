@@ -4,6 +4,12 @@ import 'package:p_3/src/models/actores_model.dart';
 import '../models/pelicula_model.dart';
 import '../providers/peliculas_provider.dart';
 
+
+import 'dart:async';
+import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:image_downloader/image_downloader.dart';
+
 class PeliculaDetalle extends StatelessWidget {
 
   
@@ -38,6 +44,14 @@ class PeliculaDetalle extends StatelessWidget {
       expandedHeight: 200.0,
       floating: false,
       pinned: true,
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.file_download),
+          onPressed: (){
+            _descargar(pelicula.getPosterImg(), pelicula.title);
+          }
+        ),
+      ],
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Text(
@@ -164,5 +178,76 @@ class PeliculaDetalle extends StatelessWidget {
       ),
     );
   }
+
+
+
+
+
+
+  Future<void> _downloadImage(String url, {AndroidDestinationType destination, bool whenError = false}) async {
+    String fileName;
+    String path;
+    int size;
+    String mimeType;
+    try {
+      String imageId;
+
+      if (whenError) {
+        imageId = await ImageDownloader.downloadImage(url).catchError((error) {
+          if (error is PlatformException) {
+            var path = "";
+            if (error.code == "404") {
+              print("Not Found Error.");
+            } else if (error.code == "unsupported_file") {
+              print("UnSupported FIle Error.");
+              path = error.details["unsupported_file_path"];
+            }
+          }
+
+          print(error);
+        }).timeout(Duration(seconds: 10), onTimeout: () {
+          print("timeout");
+        });
+      } else {
+        if (destination == null) {
+          imageId = await ImageDownloader.downloadImage(url);
+        } else {
+          imageId = await ImageDownloader.downloadImage(
+            url,
+            destination: destination,
+          );
+        }
+      }
+
+      if (imageId == null) {
+        return;
+      }
+      fileName = await ImageDownloader.findName(imageId);
+      path = await ImageDownloader.findPath(imageId);
+      size = await ImageDownloader.findByteSize(imageId);
+      mimeType = await ImageDownloader.findMimeType(imageId);
+    } on PlatformException catch (error) {
+      return;
+    }
+  }
+
+  Future<void> _descargar(String url, String nombre) async {
+    try {
+      // Saved with this method.
+      var imageId = await ImageDownloader.downloadImage(
+        url,
+        destination: AndroidDestinationType.directoryPictures
+                        // ..inExternalFilesDir()
+                        ..subDirectory("$nombre.jpg"),
+      );
+      if (imageId == null) {
+        return;
+      }
+    }on PlatformException catch (error) {
+      print(error);
+    }
+  }
+
+
 
 }
