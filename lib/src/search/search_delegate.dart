@@ -25,6 +25,9 @@ class DataSearch extends SearchDelegate{
 
 
   @override
+   ThemeData appBarTheme(BuildContext context) => Theme.of(context);
+
+  @override
   List<Widget> buildActions(BuildContext context) {
     // Acciones del Appbar
     return [
@@ -56,10 +59,10 @@ class DataSearch extends SearchDelegate{
     // Crea los resultados que vamos a mostrar
     return Center(
       child: Container(
-        height: 100.0,
-        width: 100.0,
-        color: Colors.blueAccent,
-        child: Text(seleccion),
+        // height: 100.0,
+        // width: 100.0,
+        // color: Colors.blueAccent,
+        // child: Text(seleccion),
       ),
     );
   }
