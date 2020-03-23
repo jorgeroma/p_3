@@ -93,6 +93,10 @@ class Pelicula {
 
   }
 
+  String getTitulo(){
+    return title + ' (' + releaseDate.substring(0, 4) + ')';
+  }
+
 
 }
 

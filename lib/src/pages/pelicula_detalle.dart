@@ -11,13 +11,12 @@ import 'package:flutter/services.dart';
 import 'package:image_downloader/image_downloader.dart';
 
 class PeliculaDetalle extends StatelessWidget {
-
-  
+    
   @override
   Widget build(BuildContext context) {
     
     final Pelicula pelicula = ModalRoute.of(context).settings.arguments;
-    
+
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -49,6 +48,7 @@ class PeliculaDetalle extends StatelessWidget {
           icon: Icon(Icons.file_download),
           onPressed: (){
             _descargar(pelicula.getPosterImg(), pelicula.title);
+            Clipboard.setData(ClipboardData(text: pelicula.getTitulo()));
           }
         ),
       ],
@@ -69,6 +69,8 @@ class PeliculaDetalle extends StatelessWidget {
   }
 
   Widget _posterTitulo(Pelicula pelicula, BuildContext context) {
+
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
@@ -96,6 +98,7 @@ class PeliculaDetalle extends StatelessWidget {
                     Text(pelicula.voteAverage.toString(), style: Theme.of(context).textTheme.subhead)
                   ],
                 ),
+                Text('Año: ' + pelicula.releaseDate.substring(0, 4), style: Theme.of(context).textTheme.subhead),
               ],
             ),
           ),
